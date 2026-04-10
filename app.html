@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Monetra</title>
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp"/>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="onboarding" class="onboarding">
+
+<div class="onboarding-box">
+
+<h2>Welcome to Monetra</h2>
+
+<div class="onboarding-progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="progress-text" id="progressText">Step 1 of 6</div>
+
+<div class="onboarding-step active" data-step="1">
+<label>What is your name?</label>
+<input id="onboardName" type="text">
+<button class="onboard-next">Next</button>
+</div>
+
+<div class="onboarding-step" data-step="2">
+<label>What is your average monthly income (after tax)?</label>
+<input id="onboardIncome" type="number">
+<button class="onboard-next">Next</button>
+</div>
+
+<div class="onboarding-step" data-step="3">
+<label>What is your main source of income?</label>
+<select id="onboardSource">
+<option>Salary</option>
+<option>Business</option>
+<option>Freelance</option>
+<option>Multiple</option>
+</select>
+<button class="onboard-next">Next</button>
+</div>
+
+<div class="onboarding-step" data-step="4">
+<label>How much do you spend on fixed monthly expenses?</label>
+<input id="onboardExpenses" type="number">
+<button class="onboard-next">Next</button>
+</div>
+
+<div class="onboarding-step" data-step="5">
+<label>How much savings do you currently have?</label>
+<input id="onboardSavings" type="number">
+<button class="onboard-next">Next</button>
+</div>
+
+<div class="onboarding-step" data-step="6">
+<label>What is your main financial goal right now?</label>
+<select id="onboardGoal">
+<option>Save money</option>
+<option>Pay debt</option>
+<option>Invest</option>
+<option>Track spending</option>
+</select>
+<button id="onboardFinish">Finish</button>
+</div>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<!-- SIDEBAR (desktop only) -->
+
+<aside>
+
+<div class="top">
+<div class="logo">
+<h2>Mo<span class="danger">netra</span></h2>
+</div>
+</div>
+
+<div class="sidebar">
+
+<a href="#" id="navDashboard" class="active">
+<span class="material-symbols-sharp">grid_view</span>
+<h3>Dashboard</h3>
+</a>
+
+<a href="#" id="navTransactions">
+<span class="material-symbols-sharp">receipt_long</span>
+<h3>Transactions</h3>
+</a>
+
+<a href="#" id="navBudgets">
+<span class="material-symbols-sharp">account_balance_wallet</span>
+<h3>Budgets</h3>
+</a>
+
+<a href="#" id="navGoals">
+<span class="material-symbols-sharp">flag</span>
+<h3>Goals</h3>
+</a>
+
+<a href="#" id="navSubscriptions">
+<span class="material-symbols-sharp">autorenew</span>
+<h3>Subscriptions</h3>
+</a>
+
+<a href="#" id="navAnalytics">
+<span class="material-symbols-sharp">insights</span>
+<h3>Analytics</h3>
+</a>
+
+<a href="#" id="navSettings">
+<span class="material-symbols-sharp">settings</span>
+<h3>Settings</h3>
+</a>
+
+</div>
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<main>
+
+<!-- DASHBOARD -->
+
+<section id="dashboardPage" class="page active">
+
+<h1 id="dashboardGreeting">Welcome</h1>
+<p id="dashboardSubtext">What do you want to track today?</p>
+
+<div class="insights">
+
+<div class="sales">
+<span class="material-symbols-sharp">account_balance_wallet</span>
+
+<div class="middle">
+<div class="left">
+<h3>Total Balance</h3>
+<h1 id="balanceAmount">₹0</h1>
+</div>
+</div>
+
+<small>Current Balance</small>
+</div>
+
+<div class="income">
+<span class="material-symbols-sharp">trending_up</span>
+
+<div class="middle">
+<div class="left">
+<h3>Total Income</h3>
+<h1 id="incomeAmount">₹0</h1>
+</div>
+</div>
+
+<small>This Month</small>
+</div>
+
+<div class="expenses">
+<span class="material-symbols-sharp">trending_down</span>
+
+<div class="middle">
+<div class="left">
+<h3>Total Expenses</h3>
+<h1 id="expenseAmount">₹0</h1>
+</div>
+</div>
+
+<small>This Month</small>
+</div>
+
+<div class="sales">
+<span class="material-symbols-sharp">savings</span>
+
+<div class="middle">
+<div class="left">
+<h3>Savings Rate</h3>
+<h1 id="savingsRate">0%</h1>
+</div>
+</div>
+
+<small>Income vs Expense</small>
+</div>
+
+</div>
+
+<!-- MONTHLY SUMMARY -->
+
+<div class="summary-card">
+<h3>Monthly Summary</h3>
+<p id="summaryText">Loading summary...</p>
+</div>
+
+<div class="recent_order">
+
+<h2>Recent Transactions</h2>
+
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Description</th>
+<th>Date</th>
+<th>Amount</th>
+</tr>
+</thead>
+
+<tbody id="recentTransactions"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- TRANSACTIONS PAGE -->
+
+<section id="transactionsPage" class="page">
+
+<h1>Transactions</h1>
+
+<div class="transactions-toolbar">
+
+<input
+type="text"
+id="searchTransaction"
+placeholder="Search transactions..."
+>
+
+<div class="filters">
+<button id="filterAll" class="active">All</button>
+<button id="filterIncome">Income</button>
+<button id="filterExpense">Expenses</button>
+</div>
+
+</div>
+
+<div id="transactionsList" class="transactions-list"></div>
+
+</section>
+
+<!-- BUDGET PAGE -->
+
+<section id="budgetsPage" class="page">
+
+<div class="budgets-header">
+
+<h1>Budgets</h1>
+
+<button id="openBudgetModal" class="add-budget-btn">
++ Add Budget
+</button>
+
+</div>
+
+<div class="budget-container" id="budgetContainer"></div>
+
+</section>
+
+<!-- GOALS PAGE -->
+
+<section id="goalsPage" class="page">
+
+<div class="budgets-header">
+
+<h1>Goals</h1>
+
+<button id="openGoalModal" class="add-budget-btn">
++ New Goal
+</button>
+
+</div>
+
+<div id="goalsContainer"></div>
+
+</section>
+
+<!-- RECURRING PAGE -->
+
+<section id="subscriptionsPage" class="page">
+
+<h1>Subscriptions</h1>
+
+<div id="subscriptionsList"></div>
+
+</section>
+
+<!-- ANALYTICS PAGE -->
+
+<section id="analyticsPage" class="page">
+
+<h1>Analytics</h1>
+
+<div class="insights-grid">
+
+<div class="insight-card">
+<h4>Top Spending</h4>
+<h2 id="topCategory">-</h2>
+<small id="topCategoryAmount"></small>
+</div>
+
+<div class="insight-card">
+<h4>Biggest Expense</h4>
+<h2 id="biggestExpense">-</h2>
+<small id="biggestExpenseAmount"></small>
+</div>
+
+<div class="insight-card">
+<h4>Savings Rate</h4>
+<h2 id="monthlySavingsRate">0%</h2>
+<small>This month</small>
+</div>
+
+<div class="insight-card">
+<h4>Budget Warning</h4>
+<h2 id="budgetAlert">Good</h2>
+<small id="budgetAlertText">All budgets safe</small>
+</div>
+
+<div class="insight-card">
+<h4>Spending Insight</h4>
+<h2 id="spendingInsight">-</h2>
+<small id="spendingInsightText"></small>
+</div>
+
+<div class="insight-card">
+<h4>Savings Health</h4>
+<h2 id="savingsInsight">-</h2>
+<small id="savingsInsightText"></small>
+</div>
+
+<div class="insight-card">
+<h4>Goal Prediction</h4>
+<h2 id="goalInsight">-</h2>
+<small id="goalInsightText"></small>
+</div>
+
+</div>
+
+<div class="analytics-grid">
+
+<div class="analytics-card">
+<h3>Income vs Expenses</h3>
+<canvas id="incomeExpenseChart"></canvas>
+</div>
+
+<div class="analytics-card">
+<h3>Savings Growth</h3>
+<canvas id="savingsChart"></canvas>
+</div>
+
+<div class="analytics-card">
+<h3>Spending by Category</h3>
+<canvas id="categoryChart"></canvas>
+</div>
+
+<div class="analytics-card">
+<h3>Monthly Savings</h3>
+<canvas id="monthlySavingsChart"></canvas>
+</div>
+
+</div>
+
+</section>
+
+<!-- SETTINGS PAGE -->
+
+<section id="settingsPage" class="page">
+
+<h1>Settings</h1>
+
+<div class="settings-container">
+
+<div class="settings-card">
+
+<h3>Profile</h3>
+
+<div class="settings-field">
+<label>Name</label>
+<input type="text" id="userName" placeholder="Your name">
+</div>
+
+<div class="settings-field">
+<label>Currency</label>
+<select id="currencySelect">
+<option value="₹">₹ INR</option>
+<option value="$">$ USD</option>
+<option value="€">€ EUR</option>
+</select>
+</div>
+
+<button id="saveSettings" class="add-btn">Save Settings</button>
+
+</div>
+
+<div class="settings-card">
+
+<h3>Data</h3>
+
+<button id="clearData" class="cancel-btn">Clear All Data</button>
+
+<button id="exportData" class="add-btn">
+Export Data
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav">
+  <a href="#" id="mNavDashboard" class="active">
+    <span class="material-symbols-sharp">grid_view</span>
+    <span class="label">Home</span>
+  </a>
+  <a href="#" id="mNavTransactions">
+    <span class="material-symbols-sharp">receipt_long</span>
+    <span class="label">Txns</span>
+  </a>
+  <a href="#" id="mNavBudgets">
+    <span class="material-symbols-sharp">account_balance_wallet</span>
+    <span class="label">Budgets</span>
+  </a>
+  <a href="#" id="mNavGoals">
+    <span class="material-symbols-sharp">flag</span>
+    <span class="label">Goals</span>
+  </a>
+  <a href="#" id="mNavAnalytics">
+    <span class="material-symbols-sharp">insights</span>
+    <span class="label">Analytics</span>
+  </a>
+  <a href="#" id="mNavSettings">
+    <span class="material-symbols-sharp">settings</span>
+    <span class="label">Settings</span>
+  </a>
+</nav>
+
+<!-- FAB -->
+<div id="fabAddTransaction" class="fab">
+<span class="material-symbols-sharp">add</span>
+</div>
+
+<!-- TRANSACTION MODAL -->
+
+<div id="transactionModal" class="modal">
+
+<div class="modal-content transaction-modal">
+
+<div class="modal-header">
+
+<h2>Add Transaction</h2>
+
+<span class="material-symbols-sharp close-modal" id="closeTransactionModal">
+close
+</span>
+
+</div>
+
+<div class="transaction-type">
+
+<button id="expenseBtn" class="active">Expense</button>
+<button id="incomeBtn">Income</button>
+
+</div>
+
+<div class="form-group">
+<label>Amount (₹)</label>
+<input type="number" id="amountInput" placeholder="0"/>
+</div>
+
+<div class="form-group">
+
+<label>Category</label>
+
+<div id="expenseCategories" class="category-grid">
+
+<button>🍔 Food</button>
+<button>🚗 Transport</button>
+<button>🛍 Shopping</button>
+<button>🏠 Rent</button>
+<button>💊 Health</button>
+<button>🎬 Entertainment</button>
+<button>💡 Utilities</button>
+<button>📚 Education</button>
+<button>📦 Other</button>
+
+</div>
+
+<div id="incomeCategories" class="category-grid" style="display:none">
+
+<button>💰 Salary</button>
+<button>💼 Freelance</button>
+<button>📈 Investments</button>
+<button>🎁 Gifts</button>
+<button>🏦 Interest</button>
+<button>💵 Bonus</button>
+<button>📊 Business</button>
+<button>➕ Other</button>
+
+</div>
+
+</div>
+
+<div class="form-group">
+<label>Description</label>
+<input type="text" placeholder="What was this for?"/>
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+<label>Date</label>
+<input type="date"/>
+</div>
+
+<div class="form-group">
+
+<label>Payment</label>
+
+<select id="paymentMethod">
+<option>UPI</option>
+<option>Cash</option>
+<option>Debit Card</option>
+<option>Credit Card</option>
+<option>Bank Transfer</option>
+</select>
+
+</div>
+
+</div>
+
+<div class="form-group">
+<label>Tags (comma separated)</label>
+<input type="text" placeholder="e.g recurring, business"/>
+</div>
+
+<div class="form-group toggle-row">
+
+<label>Recurring Transaction</label>
+
+<label class="switch">
+<input type="checkbox" id="recurringToggle"/>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="modal-actions">
+
+<button class="cancel-btn" id="cancelTransaction">
+Cancel
+</button>
+
+<button class="add-btn" id="saveTransaction">
+Add Transaction
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BUDGET MODAL -->
+
+<div id="budgetModal" class="modal">
+
+<div class="modal-content budget-modal">
+
+<h2>Create Budget</h2>
+
+<div class="budget-form">
+
+<div class="budget-field">
+<label>Category</label>
+
+<select id="budgetCategory">
+
+<option>🍔 Food</option>
+<option>🚗 Transport</option>
+<option>🛍 Shopping</option>
+<option>🏠 Rent</option>
+<option>💊 Health</option>
+<option>🎬 Entertainment</option>
+<option>💡 Utilities</option>
+<option>📚 Education</option>
+<option>📦 Other</option>
+
+</select>
+
+</div>
+
+<div class="budget-field">
+<label>Budget Amount</label>
+<input type="number" id="budgetAmount" placeholder="Enter monthly budget">
+</div>
+
+<div class="budget-actions">
+
+<button id="cancelBudget" class="cancel-btn">
+Cancel
+</button>
+
+<button id="saveBudget" class="add-btn">
+Create Budget
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- GOAL MODAL -->
+
+<div id="goalModal" class="modal">
+
+<div class="modal-content goal-modal">
+
+<h2>Create Savings Goal</h2>
+
+<div class="goal-form">
+
+<div class="goal-field">
+<label>Goal Name</label>
+<input type="text" id="goalName" placeholder="Example: Buy Laptop">
+</div>
+
+<div class="goal-row">
+
+<div class="goal-field">
+<label>Target Amount</label>
+<input type="number" id="goalTarget" placeholder="₹50,000">
+</div>
+
+<div class="goal-field">
+<label>Saved So Far</label>
+<input type="number" id="goalSaved" placeholder="₹5,000">
+</div>
+
+</div>
+
+<div class="goal-field">
+<label>Target Date</label>
+<input type="date" id="goalDate">
+</div>
+
+<div class="goal-actions">
+
+<button id="cancelGoal" class="cancel-btn">
+Cancel
+</button>
+
+<button id="saveGoal" class="add-btn">
+Create Goal
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+<!-- MOBILE NAV SCRIPT -->
+<script>
+(function(){
+  function mobileNav(mobileId, desktopId, pageId, extraFn){
+    const mEl = document.getElementById(mobileId);
+    const dEl = document.getElementById(desktopId);
+    if(!mEl) return;
+    mEl.addEventListener('click', function(e){
+      e.preventDefault();
+      // trigger same logic as desktop nav
+      if(dEl) dEl.click();
+      // update mobile nav highlight
+      document.querySelectorAll('.mobile-nav a').forEach(a => a.classList.remove('active'));
+      mEl.classList.add('active');
+    });
+  }
+  mobileNav('mNavDashboard',    'navDashboard');
+  mobileNav('mNavTransactions', 'navTransactions');
+  mobileNav('mNavBudgets',      'navBudgets');
+  mobileNav('mNavGoals',        'navGoals');
+  mobileNav('mNavAnalytics',    'navAnalytics');
+  mobileNav('mNavSettings',     'navSettings');
+
+  // keep mobile nav in sync when desktop nav is clicked
+  const map = {
+    navDashboard:    'mNavDashboard',
+    navTransactions: 'mNavTransactions',
+    navBudgets:      'mNavBudgets',
+    navGoals:        'mNavGoals',
+    navSubscriptions:null,
+    navAnalytics:    'mNavAnalytics',
+    navSettings:     'mNavSettings'
+  };
+  Object.keys(map).forEach(function(desktopId){
+    const dEl = document.getElementById(desktopId);
+    if(!dEl || !map[desktopId]) return;
+    dEl.addEventListener('click', function(){
+      document.querySelectorAll('.mobile-nav a').forEach(a => a.classList.remove('active'));
+      const mEl = document.getElementById(map[desktopId]);
+      if(mEl) mEl.classList.add('active');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
